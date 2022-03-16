@@ -34,4 +34,30 @@ describe Poll::Question::Answer do
       expect(Poll::Question::Answer.with_content).to be_empty
     end
   end
+
+  describe "has_more_information?" do
+    it "returns false when it has no documents, no images, no videos, nor description" do
+      answer = create(:poll_question_answer, description: nil)
+
+      expect(answer.has_more_information?).to eq(false)
+    end
+
+    it "return true when it has documents, images, videos or description" do
+      answer = create(:poll_question_answer)
+
+      expect(answer.has_more_information?).to eq(true)
+
+      answer = create(:poll_question_answer, :with_image, description: nil)
+
+      expect(answer.has_more_information?).to eq(true)
+
+      answer = create(:poll_question_answer, :with_document, description: nil)
+
+      expect(answer.has_more_information?).to eq(true)
+
+      answer = create(:poll_question_answer, :with_document, description: nil)
+
+      expect(answer.has_more_information?).to eq(true)
+    end
+  end
 end

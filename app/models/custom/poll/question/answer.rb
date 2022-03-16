@@ -7,4 +7,8 @@ class Poll::Question::Answer
   def total_votes
     answers.count + partial_results.sum(:amount)
   end
+
+  def has_more_information?
+    description.present? || documents.any? || images.any? || videos.any?
+  end
 end
