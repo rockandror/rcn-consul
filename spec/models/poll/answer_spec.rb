@@ -23,7 +23,7 @@ describe Poll::Answer do
       expect(answer).not_to be_valid
     end
 
-    it "is valid for answers included in the Poll::Question's question_answers list" do
+    it "is valid for answers included in the Poll::Question's question_answers list", :consul do
       question = create(:poll_question)
       create(:poll_question_answer, title: "One", question: question)
       create(:poll_question_answer, title: "Two", question: question)
@@ -42,7 +42,7 @@ describe Poll::Answer do
     let(:poll) { create(:poll) }
     let(:question) { create(:poll_question, :yes_no, poll: poll) }
 
-    it "creates a poll_voter with user and poll data" do
+    it "creates a poll_voter with user and poll data", :consul do
       answer = create(:poll_answer, question: question, author: author, answer: "Yes")
       expect(answer.poll.voters).to be_blank
 
@@ -55,7 +55,7 @@ describe Poll::Answer do
       expect(voter.officer_id).to eq(nil)
     end
 
-    it "updates a poll_voter with user and poll data" do
+    it "updates a poll_voter with user and poll data", :consul do
       answer = create(:poll_answer, question: question, author: author, answer: "Yes")
       answer.save_and_record_voter_participation("token")
 

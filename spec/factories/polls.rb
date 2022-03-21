@@ -178,14 +178,14 @@ FactoryBot.define do
   factory :poll_answer, class: "Poll::Answer" do
     association :question, factory: [:poll_question, :yes_no]
     association :author, factory: [:user, :level_two]
-    answer { question.question_answers.sample.title }
+    answer { question.question_answers.sample }
   end
 
   factory :poll_partial_result, class: "Poll::PartialResult" do
     association :question, factory: [:poll_question, :yes_no]
     association :author, factory: :user
     origin { "web" }
-    answer { question.question_answers.sample.title }
+    answer { question.question_answers.sample }
   end
 
   factory :poll_recount, class: "Poll::Recount" do

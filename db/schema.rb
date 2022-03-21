@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_03_112944) do
+ActiveRecord::Schema.define(version: 2022_03_21_123231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1019,6 +1019,8 @@ ActiveRecord::Schema.define(version: 2021_11_03_112944) do
     t.string "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.bigint "answer_id"
+    t.index ["answer_id"], name: "index_poll_answers_on_answer_id"
     t.index ["author_id"], name: "index_poll_answers_on_author_id"
     t.index ["question_id", "answer"], name: "index_poll_answers_on_question_id_and_answer"
     t.index ["question_id"], name: "index_poll_answers_on_question_id"
@@ -1086,7 +1088,9 @@ ActiveRecord::Schema.define(version: 2021_11_03_112944) do
     t.text "amount_log", default: ""
     t.text "officer_assignment_id_log", default: ""
     t.text "author_id_log", default: ""
+    t.bigint "answer_id"
     t.index ["answer"], name: "index_poll_partial_results_on_answer"
+    t.index ["answer_id"], name: "index_poll_partial_results_on_answer_id"
     t.index ["author_id"], name: "index_poll_partial_results_on_author_id"
     t.index ["booth_assignment_id", "date"], name: "index_poll_partial_results_on_booth_assignment_id_and_date"
     t.index ["origin"], name: "index_poll_partial_results_on_origin"
@@ -1775,11 +1779,13 @@ ActiveRecord::Schema.define(version: 2021_11_03_112944) do
   add_foreign_key "moderators", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "organizations", "users"
+  add_foreign_key "poll_answers", "poll_question_answers", column: "answer_id"
   add_foreign_key "poll_answers", "poll_questions", column: "question_id"
   add_foreign_key "poll_booth_assignments", "polls"
   add_foreign_key "poll_officer_assignments", "poll_booth_assignments", column: "booth_assignment_id"
   add_foreign_key "poll_partial_results", "poll_booth_assignments", column: "booth_assignment_id"
   add_foreign_key "poll_partial_results", "poll_officer_assignments", column: "officer_assignment_id"
+  add_foreign_key "poll_partial_results", "poll_question_answers", column: "answer_id"
   add_foreign_key "poll_partial_results", "poll_questions", column: "question_id"
   add_foreign_key "poll_partial_results", "users", column: "author_id"
   add_foreign_key "poll_question_answer_videos", "poll_question_answers", column: "answer_id"

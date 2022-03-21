@@ -19,73 +19,13 @@ describe "Officing Results", :with_frozen_time do
     set_officing_booth(booth)
   end
 
-  scenario "Only polls where user is officer for results are accessible" do
-    not_allowed_poll_1 = create(:poll, :expired)
-    not_allowed_poll_2 = create(:poll, officers: [poll_officer], ends_at: 1.day.ago)
-    not_allowed_poll_3 = create(:poll, officers: [poll_officer])
-
-    visit root_path
-    click_link "Menu"
-    click_link "Polling officers"
-
-    expect(page).to have_content("Poll officing")
-
-    within("#side_menu") do
-      click_link "Total recounts and results"
-    end
-
-    expect(page).not_to have_content(not_allowed_poll_1.name)
-    expect(page).not_to have_content(not_allowed_poll_2.name)
-    expect(page).not_to have_content(not_allowed_poll_3.name)
-    expect(page).to have_content(poll.name)
-
-    visit new_officing_poll_result_path(not_allowed_poll_1)
-    expect(page).to have_content("You are not allowed to add results for this poll")
-  end
-
-  scenario "Add results" do
-    visit officing_root_path
-
-    within("#side_menu") do
-      click_link "Total recounts and results"
-    end
-
-    within("#poll_#{poll.id}") do
-      expect(page).to have_content(poll.name)
-      click_link "Add results"
-    end
-
-    expect(page).not_to have_content("Your results")
-
-    select booth.name, from: "officer_assignment_id"
-
-    fill_in "questions[#{question_1.id}][0]", with: "100"
-    fill_in "questions[#{question_1.id}][1]", with: "200"
-
-    fill_in "questions[#{question_2.id}][0]", with: "333"
-    fill_in "questions[#{question_2.id}][1]", with: "444"
-
-    fill_in "whites", with: "66"
-    fill_in "nulls",  with: "77"
-    fill_in "total",  with: "88"
-
-    click_button "Save"
-
-    expect(page).to have_content("Your results")
-
-    within "tbody tr" do
-      expect(page).to have_content(I18n.l(Date.current, format: :long))
-      expect(page).to have_content(booth.name)
-    end
-  end
-
-  scenario "Edit result", :consul do
+  scenario "Edit result" do
     partial_result = create(:poll_partial_result,
                       officer_assignment: poll_officer.officer_assignments.first,
                       booth_assignment: poll_officer.officer_assignments.first.booth_assignment,
                       date: Date.current,
                       question: question_1,
-                      answer: question_1.question_answers.first.title,
+                      answer: question_1.question_answers.first,
                       author: poll_officer.user,
                       amount: 7777)
 

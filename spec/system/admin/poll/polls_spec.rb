@@ -346,7 +346,7 @@ describe "Admin polls", :admin do
         expect(page).to have_content "There are no results"
       end
 
-      scenario "Show partial results" do
+      scenario "Show partial results", :consul do
         poll = create(:poll)
 
         booth_assignment_1 = create(:poll_booth_assignment, poll: poll)
@@ -421,7 +421,7 @@ describe "Admin polls", :admin do
         expect(page).not_to have_content "Results by booth"
       end
 
-      scenario "Results by answer" do
+      scenario "Results by answer", :consul do
         poll = create(:poll)
         booth_assignment_1 = create(:poll_booth_assignment, poll: poll)
         booth_assignment_2 = create(:poll_booth_assignment, poll: poll)
@@ -476,7 +476,7 @@ describe "Admin polls", :admin do
         within("#total_results") { expect(page).to have_content("66") }
       end
 
-      scenario "Link to results by booth" do
+      scenario "Link to results by booth", :consul do
         poll = create(:poll)
         booth_assignment1 = create(:poll_booth_assignment, poll: poll)
         booth_assignment2 = create(:poll_booth_assignment, poll: poll)

@@ -148,7 +148,7 @@ section "Creating Poll Voters" do
 
       Poll::Answer.create!(question_id: question.id,
                            author: user,
-                           answer: question.question_answers.sample.title)
+                           answer: question.question_answers.sample)
     end
   end
 
@@ -203,7 +203,7 @@ section "Creating Poll Results" do
                                       booth_assignment: booth_assignment,
                                       date: Date.current,
                                       question: question,
-                                      answer: answer.title,
+                                      answer: answer,
                                       author: author,
                                       amount: rand(999),
                                       origin: "booth")

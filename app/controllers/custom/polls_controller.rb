@@ -10,7 +10,7 @@ class PollsController < ApplicationController
     @answers_by_question_id = {}
     poll_answers = ::Poll::Answer.by_question(@poll.question_ids).by_author(current_user&.id)
     poll_answers.each do |answer|
-      @answers_by_question_id[answer.question_id] = answer.answer
+      @answers_by_question_id[answer.question_id] = answer.answer_id
     end
 
     @commentable = @poll
