@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_21_123231) do
+ActiveRecord::Schema.define(version: 2022_03_21_221037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1016,13 +1016,11 @@ ActiveRecord::Schema.define(version: 2022_03_21_123231) do
   create_table "poll_answers", id: :serial, force: :cascade do |t|
     t.integer "question_id"
     t.integer "author_id"
-    t.string "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.bigint "answer_id"
     t.index ["answer_id"], name: "index_poll_answers_on_answer_id"
     t.index ["author_id"], name: "index_poll_answers_on_author_id"
-    t.index ["question_id", "answer"], name: "index_poll_answers_on_question_id_and_answer"
     t.index ["question_id"], name: "index_poll_answers_on_question_id"
   end
 
@@ -1079,7 +1077,6 @@ ActiveRecord::Schema.define(version: 2022_03_21_123231) do
   create_table "poll_partial_results", id: :serial, force: :cascade do |t|
     t.integer "question_id"
     t.integer "author_id"
-    t.string "answer"
     t.integer "amount"
     t.string "origin"
     t.date "date"
@@ -1089,7 +1086,6 @@ ActiveRecord::Schema.define(version: 2022_03_21_123231) do
     t.text "officer_assignment_id_log", default: ""
     t.text "author_id_log", default: ""
     t.bigint "answer_id"
-    t.index ["answer"], name: "index_poll_partial_results_on_answer"
     t.index ["answer_id"], name: "index_poll_partial_results_on_answer_id"
     t.index ["author_id"], name: "index_poll_partial_results_on_author_id"
     t.index ["booth_assignment_id", "date"], name: "index_poll_partial_results_on_booth_assignment_id_and_date"
