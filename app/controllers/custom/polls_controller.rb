@@ -1,19 +1,55 @@
 require_dependency Rails.root.join("app", "controllers", "polls_controller").to_s
 
 class PollsController < ApplicationController
-  def show
-    @questions = @poll.questions.for_render.sort_for_list
-    @token = poll_voter_token(@poll, current_user)
-    @poll_questions_answers = Poll::Question::Answer.where(question: @poll.questions)
-                                                    .with_content.order(:given_order)
+  has_orders %w[most_voted newest oldest], only: [:answer, :show]
 
-    @answers_by_question_id = {}
-    poll_answers = ::Poll::Answer.by_question(@poll.question_ids).by_author(current_user&.id)
-    poll_answers.each do |answer|
-      @answers_by_question_id[answer.question_id] = answer.answer_id
+  before_action :set_questions, only: [:answer, :show]
+  before_action :set_answers, only: :answer
+  before_action :set_question_answers, only: [:answer, :show]
+  before_action :set_commentable, only: [:answer, :show]
+
+  def show
+    @poll_answers = @questions.map do |question|
+      Poll::Answer.find_or_initialize_by(question: question, author: current_user)
+    end
+  end
+
+  def answer
+    if @poll_answers.map(&:valid?).all?(true)
+      ActiveRecord::Base.transaction do
+        @poll_answers.each(&:save_and_record_voter_participation)
+      end
+      redirect_to @poll, notice: t("polls.answers.create.success_notice")
+    else
+      render :show
+    end
+  end
+
+  private
+
+    def set_commentable
+      @commentable = @poll
+      @comment_tree = CommentTree.new(@commentable, params[:page], @current_order)
     end
 
-    @commentable = @poll
-    @comment_tree = CommentTree.new(@commentable, params[:page], @current_order)
-  end
+    def set_questions
+      @questions = @poll.questions.for_render.sort_for_list
+    end
+
+    def set_question_answers
+      @poll_questions_answers = Poll::Question::Answer.where(question: @questions).with_content
+        .order(:given_order)
+    end
+
+    def set_answers
+      @poll_answers = @questions.map do |question|
+        Poll::Answer.find_or_initialize_by(question: question, author: current_user).tap do |answer|
+          if question.single_choice?
+            answer.answer_id = params.dig("question_#{question.id}", :answer_id)
+          else
+            answer.open_answer = params.dig("question_#{question.id}", :open_answer)
+          end
+        end
+      end
+    end
 end

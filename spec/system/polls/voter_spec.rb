@@ -16,7 +16,7 @@ describe "Voter" do
       create(:poll_officer_assignment, officer: officer, poll: poll, booth: booth)
     end
 
-    scenario "Voting via web - Standard" do
+    scenario "Voting via web - Standard", :consul do
       user = create(:user, :level_two)
 
       login_as user
@@ -31,7 +31,7 @@ describe "Voter" do
       expect(Poll::Voter.first.origin).to eq("web")
     end
 
-    scenario "Voting via web as unverified user" do
+    scenario "Voting via web as unverified user", :consul do
       user = create(:user, :incomplete_verification)
 
       login_as user
@@ -116,7 +116,7 @@ describe "Voter" do
     context "Trying to vote the same poll in booth and web" do
       let!(:user) { create(:user, :in_census) }
 
-      scenario "Trying to vote in web and then in booth" do
+      scenario "Trying to vote in web and then in booth", :consul do
         login_as user
         vote_for_poll_via_web(poll, question, answer_yes.title)
         expect(Poll::Voter.count).to eq(1)
@@ -133,7 +133,7 @@ describe "Voter" do
         expect(page).to have_content "Has already participated in this poll"
       end
 
-      scenario "Trying to vote in booth and then in web" do
+      scenario "Trying to vote in booth and then in web", :consul do
         login_through_form_as_officer(officer.user)
 
         vote_for_poll_via_booth
@@ -164,7 +164,7 @@ describe "Voter" do
         end
       end
 
-      scenario "Trying to vote in web again" do
+      scenario "Trying to vote in web again", :consul do
         login_as user
         vote_for_poll_via_web(poll, question, answer_yes.title)
         expect(Poll::Voter.count).to eq(1)
@@ -190,7 +190,7 @@ describe "Voter" do
       end
     end
 
-    scenario "Voting in poll and then verifiying account" do
+    scenario "Voting in poll and then verifiying account", :consul do
       user = create(:user)
 
       login_through_form_as_officer(officer.user)

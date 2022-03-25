@@ -31,9 +31,7 @@
         <% end %>
       <% end %>
 
-      <% @questions.each do |question| %>
-        <%= render "polls/questions/question", question: question, token: @token %>
-      <% end %>
+      <%= render Poll::Answers::FormComponent.new(@poll, @poll_answers) %>
     </div>
   </div>
 

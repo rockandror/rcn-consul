@@ -7,3 +7,9 @@ en:
       framework:
         link: "Visit the Pro-Ethics framework pro-ethics.eu"
         logo: "Pro-Ethics logo"
+  polls:
+    answers:
+      create:
+        success_notice: "Poll saved successfully!"
+      form:
+        submit_button: "Vote"

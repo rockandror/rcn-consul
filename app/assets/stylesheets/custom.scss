@@ -135,3 +135,20 @@ body:not(.admin) {
     }
   }
 }
+
+.poll-answers-form {
+  .help-text {
+    display: block;
+    font-size: 1rem;
+    margin: 0 0 $line-height / 2;
+  }
+
+  .question-answer {
+    display: flex;
+    margin-bottom: 0.5rem;
+  }
+
+  [type="radio"] {
+    margin-bottom: 0;
+  }
+}

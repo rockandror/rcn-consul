@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe "Poll Results" do
-  scenario "List each Poll question", :consul do
+  scenario "List each Poll question" do
     user1 = create(:user, :level_two)
     user2 = create(:user, :level_two)
     user3 = create(:user, :level_two)
@@ -17,23 +17,38 @@ describe "Poll Results" do
     answer5 = create(:poll_question_answer, question: question2, title: "Yellow")
 
     login_as user1
-    vote_for_poll_via_web(poll, question1, "Yes")
-    vote_for_poll_via_web(poll, question2, "Blue")
+    visit poll_path(poll)
+
+    choose "Yes"
+    choose "Blue"
+    click_button "Vote"
+    expect(page).to have_content("Poll saved successfully!")
+
     expect(Poll::Voter.count).to eq(1)
-    logout
 
+    logout
     login_as user2
-    vote_for_poll_via_web(poll, question1, "Yes")
-    vote_for_poll_via_web(poll, question2, "Green")
+    visit poll_path(poll)
+
+    choose "Yes"
+    choose "Green"
+    click_button "Vote"
+
+    expect(page).to have_content("Poll saved successfully!")
     expect(Poll::Voter.count).to eq(2)
-    logout
 
+    logout
     login_as user3
-    vote_for_poll_via_web(poll, question1, "No")
-    vote_for_poll_via_web(poll, question2, "Yellow")
-    expect(Poll::Voter.count).to eq(3)
-    logout
+    visit poll_path(poll)
 
+    choose "No"
+    choose "Yellow"
+    click_button "Vote"
+
+    expect(page).to have_content("Poll saved successfully!")
+    expect(Poll::Voter.count).to eq(3)
+
+    logout
     poll.update!(ends_at: 1.day.ago)
 
     visit results_poll_path(poll)
@@ -51,14 +66,5 @@ describe "Poll Results" do
       expect(find("#answer_#{answer4.id}_result")).to have_content("1 (33.33%)")
       expect(find("#answer_#{answer5.id}_result")).to have_content("1 (33.33%)")
     end
-  end
-
-  scenario "Results for polls with questions but without answers" do
-    poll = create(:poll, :expired, results_enabled: true)
-    question = create(:poll_question, poll: poll)
-
-    visit results_poll_path(poll)
-
-    expect(page).to have_content question.title
   end
 end
