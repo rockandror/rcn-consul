@@ -2,6 +2,20 @@ require "rails_helper"
 
 describe Poll::Answer do
   describe "validations" do
+    describe "open answer" do
+      it "is valid when open_answer is fullfilled and the question has no answers defined" do
+        question = create(:poll_question)
+
+        expect(build(:poll_answer, open_answer: "Open Answer", question: question)).to be_valid
+      end
+
+      it "is not valid when open_answer is empty and the question has no answers defined" do
+        question = create(:poll_question)
+
+        expect(build(:poll_answer, open_answer: "", question: question)).not_to be_valid
+      end
+    end
+
     it "is valid for answers included in the Poll::Question's question_answers list" do
       question = create(:poll_question)
       question_answer_1 = create(:poll_question_answer, title: "One", question: question)
