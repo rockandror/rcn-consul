@@ -6,11 +6,14 @@ class Poll::Answer
   skip_validation :answer, :presence
   skip_validation :answer, :inclusion
 
-  validates :answer_id, presence: true, if: ->(a) { a.question&.single_choice? }
+  validates :answer_id, presence: true,
+                        if: ->(a) { a.question&.single_choice? && a.question.mandatory_answer? }
   validates :answer_id, inclusion: { in: ->(a) { a.question.question_answers.ids }},
-                        if: ->(a) { a.question&.single_choice? }
-
-  validates :open_answer, presence: true, unless: ->(a) { a.question&.single_choice? }
+                        if: ->(a) { a.question&.single_choice? },
+                        allow_nil: true
+  validates :open_answer, presence: true,
+                          unless: ->(a) { a.question&.single_choice? },
+                          if: ->(a) { a.question&.mandatory_answer? }
 
   def save_and_record_voter_participation(token = nil)
     transaction do

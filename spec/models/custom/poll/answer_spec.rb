@@ -2,17 +2,51 @@ require "rails_helper"
 
 describe Poll::Answer do
   describe "validations" do
-    describe "open answer" do
-      it "is valid when open_answer is fullfilled and the question has no answers defined" do
-        question = create(:poll_question)
+    describe "when question is open and is mandatory" do
+      let(:question) { create(:poll_question, mandatory_answer: true) }
 
-        expect(build(:poll_answer, open_answer: "Open Answer", question: question)).to be_valid
+      it "is valid if open_answer is fullfilled" do
+        expect(build(:poll_answer, question: question, open_answer: "Open Answer")).to be_valid
       end
 
-      it "is not valid when open_answer is empty and the question has no answers defined" do
-        question = create(:poll_question)
+      it "is not valid if open_answer is empty" do
+        expect(build(:poll_answer, question: question, open_answer: "")).not_to be_valid
+      end
+    end
 
-        expect(build(:poll_answer, open_answer: "", question: question)).not_to be_valid
+    describe "when question is open and is not mandatory" do
+      let(:question) { create(:poll_question, mandatory_answer: false) }
+
+      it "is valid if open_answer is fullfilled" do
+        expect(build(:poll_answer, question: question, open_answer: "Open Answer")).to be_valid
+      end
+
+      it "is valid if open_answer is empty" do
+        expect(build(:poll_answer, question: question, open_answer: "")).to be_valid
+      end
+    end
+
+    describe "when question is single choice and mandatory" do
+      let(:question) { create(:poll_question, :yes_no, mandatory_answer: true) }
+
+      it "is valid if answer any answer was chosen" do
+        expect(build(:poll_answer, answer: question.question_answers.sample, question: question)).to be_valid
+      end
+
+      it "is not valid if answer is empty" do
+        expect(build(:poll_answer, answer: nil, question: question)).not_to be_valid
+      end
+    end
+
+    describe "when question is single choice and not mandatory" do
+      let(:question) { create(:poll_question, :yes_no, mandatory_answer: false) }
+
+      it "is valid if answer is defined" do
+        expect(build(:poll_answer, answer: question.question_answers.sample, question: question)).to be_valid
+      end
+
+      it "is valid if answer is empty" do
+        expect(build(:poll_answer, answer: nil, question: question)).to be_valid
       end
     end
 

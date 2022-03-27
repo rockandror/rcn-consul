@@ -48,8 +48,8 @@ describe "Polls" do
 
     scenario "Show form errors when any answer is invalid" do
       poll = create(:poll)
-      open_question = create(:poll_question, poll: poll)
-      single_choice_question = create(:poll_question, :yes_no, poll: poll)
+      open_question = create(:poll_question, poll: poll, mandatory_answer: true)
+      single_choice_question = create(:poll_question, :yes_no, poll: poll, mandatory_answer: true)
 
       visit poll_path(poll)
       click_button "Vote"
@@ -59,7 +59,6 @@ describe "Polls" do
       end
       within "#question_#{single_choice_question.id}_answer_fields" do
         expect(page).to have_content("Answer can't be blank")
-        expect(page).to have_content("Answer is not included in the list")
       end
     end
 
