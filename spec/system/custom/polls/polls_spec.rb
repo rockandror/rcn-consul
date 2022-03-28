@@ -23,6 +23,30 @@ describe "Polls" do
       expect(page).to have_field("Yes", disabled: true)
       expect(page).to have_field("No", disabled: true)
     end
+
+    scenario "Show questions descriptions when defined" do
+      poll = create(:poll)
+      open_question = create(:poll_question, poll: poll, description: "Open question description")
+      open_question_no_decription = create(:poll_question, poll: poll)
+      single_choice_question = create(:poll_question, :yes_no, poll: poll,
+        description: "Single choice question description")
+      single_choice_question_no_description = create(:poll_question, :yes_no, poll: poll)
+
+      visit poll_path(poll)
+
+      within "#question_#{open_question.id}_answer_fields" do
+        expect(page).to have_css("span.help-text", text: "Open question description")
+      end
+      within "#question_#{single_choice_question.id}_answer_fields" do
+        expect(page).to have_css("span.help-text", text: "Single choice question description")
+      end
+      within "#question_#{open_question_no_decription.id}_answer_fields" do
+        expect(page).not_to have_css("span.help-text")
+      end
+      within "#question_#{single_choice_question_no_description.id}_answer_fields" do
+        expect(page).not_to have_css("span.help-text")
+      end
+    end
   end
 
   context "Answer" do

@@ -40,4 +40,18 @@ describe "Admin poll questions", :admin do
 
     expect(page).to have_checked_field("Mandatory answer")
   end
+
+  scenario "Create with description" do
+    poll = create(:poll, name: "Movies")
+
+    visit admin_poll_path(poll)
+    click_link "Create question"
+
+    fill_in "Question", with: "Star Wars: Episode IV - A New Hope"
+    fill_in "Description", with: "Useful description for question"
+
+    click_button "Save"
+
+    expect(page).to have_content("Useful description for question")
+  end
 end

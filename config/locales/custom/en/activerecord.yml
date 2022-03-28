@@ -3,3 +3,5 @@ en:
     attributes:
       poll/question:
         mandatory_answer: "Mandatory answer"
+      poll/question/translation:
+        description: "Description"
