@@ -8,6 +8,8 @@ class PollsController < ApplicationController
   before_action :set_question_answers, only: [:answer, :show]
   before_action :set_commentable, only: [:answer, :show]
 
+  invisible_captcha only: [:answer], honeypot: :title
+
   def show
     @poll_answers = @questions.map do |question|
       Poll::Answer.find_or_initialize_by(question: question, author: current_user)
