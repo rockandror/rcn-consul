@@ -12,6 +12,10 @@ body:not(.admin) {
   }
 }
 
+.locale .locale-form label {
+  color: inherit;
+}
+
 .top-bar {
   .top-bar-title a img {
     @include breakpoint(medium) {
