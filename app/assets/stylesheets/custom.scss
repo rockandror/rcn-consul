@@ -3,6 +3,15 @@
 // You can also create SCSS files in the app/assets/stylesheets/custom/
 // folder and they will be loaded automatically.
 
+body:not(.admin) {
+  .top-links {
+    @include full-width-border(bottom, 1px solid $border, $adjust-padding: true);
+
+    background: $white;
+    color: $black;
+  }
+}
+
 .top-bar {
   .top-bar-title a img {
     @include breakpoint(medium) {
