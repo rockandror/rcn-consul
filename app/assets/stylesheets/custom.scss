@@ -2,3 +2,12 @@
 //
 // You can also create SCSS files in the app/assets/stylesheets/custom/
 // folder and they will be loaded automatically.
+
+.top-bar {
+  .top-bar-title a img {
+    @include breakpoint(medium) {
+      width: 10rem;
+      margin: $line-height / 3 0;
+    }
+  }
+}
