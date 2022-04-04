@@ -35,3 +35,14 @@ body:not(.admin) {
     }
   }
 }
+
+.footer {
+  background: $rcn-blue;
+  color: $white;
+
+  a:active,
+  a:focus,
+  a:hover {
+    color: darken($white, 20%);
+  }
+}
