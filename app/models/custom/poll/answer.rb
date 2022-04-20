@@ -11,4 +11,12 @@ class Poll::Answer
                         if: ->(a) { a.question&.single_choice? }
 
   validates :open_answer, presence: true, unless: ->(a) { a.question&.single_choice? }
+
+  def save_and_record_voter_participation(token = nil)
+    transaction do
+      touch if persisted?
+      save!
+      Poll::Voter.find_or_create_by!(user: author, poll: poll, origin: "web")
+    end
+  end
 end
