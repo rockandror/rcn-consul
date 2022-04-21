@@ -1,5 +1,6 @@
 <%= form_tag answer_poll_path(poll), id: "#{dom_id(poll)}_answers", class: "poll-answers-form" do %>
   <%= invisible_captcha :title %>
+  <%= render ErrorsComponent.new(error_message) %>
   <% answers.each do |answer| %>
     <%= render Poll::Answers::FieldsComponent.new(answer) %>
   <% end %>
