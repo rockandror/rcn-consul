@@ -46,3 +46,10 @@ body:not(.admin) {
     color: darken($white, 20%);
   }
 }
+
+.home-page {
+  .header-card,
+  .background-header {
+    background-color: $brand-secondary;
+  }
+}
