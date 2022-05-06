@@ -12,8 +12,14 @@ body:not(.admin) {
   }
 }
 
-.locale .locale-form label {
-  color: inherit;
+.locale {
+  ul {
+    justify-content: right;
+  }
+
+  .locale-form label {
+    color: inherit;
+  }
 }
 
 .top-bar {
