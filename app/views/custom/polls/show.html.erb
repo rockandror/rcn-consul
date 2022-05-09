@@ -47,7 +47,7 @@
   <div id="poll_more_info_answers" class="expanded poll-more-info-answers">
     <div class="row padding">
       <% @poll_questions_answers.select(&:has_more_information?).each do |answer| %>
-        <div class="small-12 medium-6 column end answer <%= cycle("first", "") %>" id="answer_<%= answer.id %>">
+        <div class="small-12 column end answer" id="answer_<%= answer.id %>">
           <h3><%= answer.title %></h3>
 
           <% if answer.images.any? %>
