@@ -24,8 +24,12 @@ body:not(.admin) {
 
 .top-bar {
   .top-bar-title a img {
+    @include breakpoint(small only) {
+      height: 3.5rem;
+    }
+
     @include breakpoint(medium) {
-      width: 10rem;
+      width: 12rem;
       margin: $line-height / 3 0;
     }
   }
@@ -50,6 +54,21 @@ body:not(.admin) {
   a:focus,
   a:hover {
     color: darken($white, 20%);
+  }
+
+  .logo img {
+    @include breakpoint(small only) {
+      height: 1.5rem;
+      width: auto;
+    }
+
+    @include breakpoint(medium) {
+      width: 7rem;
+    }
+  }
+
+  .footer-sections img {
+    height: 3rem;
   }
 }
 
