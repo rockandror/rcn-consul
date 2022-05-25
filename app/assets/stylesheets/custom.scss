@@ -162,3 +162,7 @@ body:not(.admin) {
     border-right: 0;
   }
 }
+
+.form-error {
+  font-size: $small-font-size;
+}
