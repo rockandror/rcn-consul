@@ -21,6 +21,7 @@ class Poll::Answers::FieldsComponent < ApplicationComponent
   def styles
     classes = %w[question-answer-fields]
     classes << "single-choice" if answer.question.single_choice?
+    classes << "has-error" if answer.errors.any?
     classes.join(" ")
   end
 end

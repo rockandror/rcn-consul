@@ -146,6 +146,12 @@ body:not(.admin) {
   .question-answer-fields {
     margin-bottom: $line-height;
 
+    &.has-error {
+      legend {
+        color: $alert-color;
+      }
+    }
+
     &.single-choice .form-error {
       margin-top: 0;
       margin-bottom: 0;
