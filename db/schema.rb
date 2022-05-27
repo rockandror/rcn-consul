@@ -1143,6 +1143,7 @@ ActiveRecord::Schema.define(version: 2022_08_22_155714) do
     t.datetime "updated_at"
     t.tsvector "tsv"
     t.string "video_url"
+    t.string "validator"
     t.boolean "mandatory_answer", default: false, null: false
     t.index ["author_id"], name: "index_poll_questions_on_author_id"
     t.index ["poll_id"], name: "index_poll_questions_on_poll_id"
