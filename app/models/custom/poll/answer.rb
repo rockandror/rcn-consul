@@ -11,6 +11,13 @@ class Poll::Answer
   validates :answer_id, inclusion: { in: ->(a) { a.question.question_answers.ids }},
                         if: ->(a) { a.question&.single_choice? },
                         allow_nil: true
+  validates :open_answer, format: { with: /\d{4}\Z/,
+                                    message: I18n.t("polls.answers.form.postal_code_validator") },
+                          if: ->(a) { a.question&.postal_code_validator? },
+                          allow_blank: true
+  validates :open_answer, numericality: { only_integer: true, greater_than: 10, less_than: 120 },
+                          if: ->(a) { a.question&.age_validator? },
+                          allow_blank: true
   validates :open_answer, presence: true,
                           unless: ->(a) { a.question&.single_choice? },
                           if: ->(a) { a.question&.mandatory_answer? }

@@ -45,4 +45,10 @@ module PollsHelper
   def show_polls_description?
     @active_poll.present? && @current_filter == "current"
   end
+
+  def question_validators_options
+    Poll::Question::VALIDATORS.map do |validator|
+      [t("polls.questions.validators.#{validator}"), validator]
+    end
+  end
 end

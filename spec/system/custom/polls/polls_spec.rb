@@ -198,5 +198,34 @@ describe "Polls" do
       expect(page).to have_content "1 error prevented your answers from being saved. Please check the " \
                                    "marked field to know how to correct it:"
     end
+
+    describe "Show validator errors" do
+      scenario "for postal_code_validator" do
+        poll = create(:poll)
+        open_question = create(:poll_question, poll: poll, validator: "postal_code")
+
+        visit poll_path(poll)
+        fill_in open_question.title, with: "1234AAAA"
+        click_button "Vote"
+
+        within "#question_#{open_question.id}_answer_fields" do
+          expect(page).to have_content("The postal code format is invalid. Allowed postal codes must " \
+                                       "contain four digits.")
+        end
+      end
+
+      scenario "for age_validator" do
+        poll = create(:poll)
+        open_question = create(:poll_question, poll: poll, validator: "age")
+
+        visit poll_path(poll)
+        fill_in open_question.title, with: "9"
+        click_button "Vote"
+
+        within "#question_#{open_question.id}_answer_fields" do
+          expect(page).to have_content("must be greater than 10")
+        end
+      end
+    end
   end
 end
