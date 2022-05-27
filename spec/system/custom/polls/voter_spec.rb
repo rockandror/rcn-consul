@@ -12,6 +12,7 @@ describe "Voter" do
       visit poll_path(poll)
 
       choose "Yes"
+      check "By answering you accept the terms and conditions of use"
       click_button "Vote"
 
       expect(page).to have_content("Poll saved successfully!")

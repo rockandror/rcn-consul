@@ -21,6 +21,7 @@ describe "Poll Results" do
 
     choose "Yes"
     choose "Blue"
+    check "By answering you accept the terms and conditions of use"
     click_button "Vote"
     expect(page).to have_content("Poll saved successfully!")
 
@@ -32,6 +33,7 @@ describe "Poll Results" do
 
     choose "Yes"
     choose "Green"
+    check "By answering you accept the terms and conditions of use"
     click_button "Vote"
 
     expect(page).to have_content("Poll saved successfully!")
@@ -43,6 +45,7 @@ describe "Poll Results" do
 
     choose "No"
     choose "Yellow"
+    check "By answering you accept the terms and conditions of use"
     click_button "Vote"
 
     expect(page).to have_content("Poll saved successfully!")

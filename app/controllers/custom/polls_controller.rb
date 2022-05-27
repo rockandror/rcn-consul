@@ -11,16 +11,14 @@ class PollsController < ApplicationController
   invisible_captcha only: [:answer], honeypot: :title
 
   def show
-    @poll_answers = @questions.map do |question|
+    @poll_answers_form = Poll::AnswersForm.new(answers: @questions.map do |question|
       Poll::Answer.find_or_initialize_by(question: question, author: current_user)
-    end
+    end)
   end
 
   def answer
-    if @poll_answers.map(&:valid?).all?(true)
-      ActiveRecord::Base.transaction do
-        @poll_answers.each(&:save_and_record_voter_participation)
-      end
+    if @poll_answers_form.valid?
+      @poll_answers_form.save!
       redirect_to @poll, notice: t("polls.answers.create.success_notice")
     else
       render :show
@@ -44,7 +42,7 @@ class PollsController < ApplicationController
     end
 
     def set_answers
-      @poll_answers = @questions.map do |question|
+      answers = @questions.map do |question|
         Poll::Answer.find_or_initialize_by(question: question, author: current_user).tap do |answer|
           if question.single_choice?
             answer.answer_id = params.dig("question_#{question.id}", :answer_id)
@@ -53,5 +51,8 @@ class PollsController < ApplicationController
           end
         end
       end
+
+      @poll_answers_form = Poll::AnswersForm.new(answers: answers, terms_of_service:
+        params.dig("poll_answers_form", :terms_of_service))
     end
 end

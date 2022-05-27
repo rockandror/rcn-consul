@@ -94,6 +94,7 @@ describe "Polls" do
 
       fill_in open_question.title, with: "Open answer to question 1"
       choose "Yes"
+      check "By answering you accept the terms and conditions of use"
       click_button "Vote"
 
       expect(page).to have_content("You have already participated in this poll.")
@@ -113,6 +114,7 @@ describe "Polls" do
       visit poll_path(poll)
 
       choose "Yes"
+      check "By answering you accept the terms and conditions of use"
       click_button "Vote"
 
       expect(page).to have_content("Poll saved successfully!")
@@ -128,6 +130,7 @@ describe "Polls" do
       visit poll_path(poll)
       fill_in open_question.title, with: "Open answer"
       choose "Yes"
+      check "By answering you accept the terms and conditions of use"
       click_button "Vote"
 
       within "#question_#{open_question.id}_answer_fields" do
@@ -182,8 +185,42 @@ describe "Polls" do
 
       click_button "Vote"
 
+      expect(page).to have_content "2 errors prevented your answers from being saved. Please check the " \
+                                   "marked fields to know how to correct them:"
+    end
+
+    scenario "Does not persist user answers when the terms and conditions are not accepted" do
+      poll = create(:poll)
+      create(:poll_question, :yes_no, poll: poll)
+      visit poll_path(poll)
+
+      choose "Yes"
+      click_button "Vote"
+
       expect(page).to have_content "1 error prevented your answers from being saved. Please check the " \
                                    "marked field to know how to correct it:"
+      expect(page).to have_field("Yes", checked: true)
+      expect(page).to have_content "must be accepted"
+    end
+
+    scenario "Does not show and do not require the terms and conditions when updating" do
+      poll = create(:poll)
+      create(:poll_question, :yes_no, poll: poll)
+      visit poll_path(poll)
+
+      expect(page).to have_field("By answering you accept the terms and conditions of use")
+
+      choose "Yes"
+      check "By answering you accept the terms and conditions of use"
+      click_button "Vote"
+
+      expect(page).to have_content("Poll saved successfully!")
+      expect(page).not_to have_field("By answering you accept the terms and conditions of use")
+
+      choose "No"
+      click_button "Vote"
+
+      expect(page).to have_content("Poll saved successfully!")
     end
   end
 end
