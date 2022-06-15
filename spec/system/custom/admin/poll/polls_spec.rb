@@ -161,4 +161,32 @@ describe "Admin polls", :admin do
       end
     end
   end
+
+  context "Selecting csv", :no_js do
+    scenario "Downloading CSV file", :admin do
+      user_1 = create(:user, :level_two)
+      user_2 = create(:user, :level_two)
+      poll = create(:poll, name: "Questions to citizens")
+      question_1 = create(:poll_question, poll: poll, title: "What is your favourite color?")
+      create(:poll_answer, question: question_1, open_answer: "Red", author: user_1)
+      create(:poll_answer, question: question_1, open_answer: "Blue", author: user_2)
+      question_2 = create(:poll_question, :yes_no, poll: poll, title: "Do you agree?")
+      create(:poll_answer, question: question_2, answer: question_2.question_answers.first, author: user_1)
+      create(:poll_answer, question: question_2, answer: question_2.question_answers.last, author: user_2)
+      create(:poll_voter, user: user_1, poll: poll)
+      create(:poll_voter, user: user_2, poll: poll)
+
+      visit admin_poll_path(poll)
+      click_link "Download polls results"
+
+      header = page.response_headers["Content-Disposition"]
+      expect(header).to match(/^attachment/)
+      expect(header).to match(/filename="questions_to_citizens_questions_answers.csv"$/)
+      csv_contents = "What is your favourite color?,Do you agree?\n"\
+                     "Red,Yes\n"\
+                     "Blue,No\n"\
+
+      expect(page.body).to eq(csv_contents)
+    end
+  end
 end
