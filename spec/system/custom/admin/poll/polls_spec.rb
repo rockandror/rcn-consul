@@ -173,6 +173,9 @@ describe "Admin polls", :admin do
       question_2 = create(:poll_question, :yes_no, poll: poll, title: "Do you agree?")
       create(:poll_answer, question: question_2, answer: question_2.question_answers.first, author: user_1)
       create(:poll_answer, question: question_2, answer: question_2.question_answers.last, author: user_2)
+      question_3 = create(:poll_question, :yes_no, poll: poll, title: "Do you have environmental concerns?")
+      create(:poll_answer, question: question_3, answer: question_3.question_answers.first, author: user_1)
+      create(:poll_answer, question: question_3, answer: nil, author: user_2)
       create(:poll_voter, user: user_1, poll: poll)
       create(:poll_voter, user: user_2, poll: poll)
 
@@ -182,9 +185,9 @@ describe "Admin polls", :admin do
       header = page.response_headers["Content-Disposition"]
       expect(header).to match(/^attachment/)
       expect(header).to match(/filename="questions_to_citizens_questions_answers.csv"$/)
-      csv_contents = "What is your favourite color?,Do you agree?\n"\
-                     "Red,Yes\n"\
-                     "Blue,No\n"\
+      csv_contents = "What is your favourite color?,Do you agree?,Do you have environmental concerns?\n"\
+                     "Red,Yes,Yes\n"\
+                     "Blue,No,\n"\
 
       expect(page.body).to eq(csv_contents)
     end

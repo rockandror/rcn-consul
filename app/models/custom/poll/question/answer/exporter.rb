@@ -28,7 +28,7 @@ class Poll::Question::Answer::Exporter
 
     def value_of(answer)
       if answer.question.single_choice?
-        answer.answer.title
+        answer.answer&.title
       else
         answer.open_answer
       end
