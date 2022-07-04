@@ -78,3 +78,27 @@ body:not(.admin) {
     background-color: $brand-secondary;
   }
 }
+
+.button,
+.proposal .supports .button-support {
+  background: $rcn-blue;
+  color: $white;
+
+  &:hover {
+    background: $rcn-orange;
+    color: $rcn-blue;
+  }
+}
+
+.debate-form,
+.proposal-form,
+.budget-investment-form {
+  [type="submit"] {
+    @include regular-button($rcn-blue);
+
+    &:hover {
+      background: $rcn-orange;
+      color: $rcn-blue;
+    }
+  }
+}
