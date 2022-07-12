@@ -3,7 +3,7 @@ on:
   pull_request_target:
     types: [opened, reopened]
 env:
-  MY_GITHUB_TOKEN: ${{ secrets.KANBAN_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.KANBAN_TOKEN }}
 
 jobs:
   assign_one_project:
