@@ -24,6 +24,21 @@ class Setting
       else
         consul_defaults.merge({
           # Overwrite default CONSUL settings or add new settings here
+          "feature.facebook_login": false,
+          "feature.google_login": false,
+          "feature.twitter_login": false,
+          "feature.signature_sheets": false,
+          "feature.sdg": false,
+          "homepage.widgets.feeds.processes": false,
+          "process.budgets": false,
+          "process.legislation": false,
+          proposal_code_prefix: "RCN",
+          url: "http://rcn.pro-ethics.eu",
+          org_name: "RCN",
+          meta_title: "Norges forskningsråds medvirkningsverktøy",
+          meta_description: "Norges forskningsråds medvirkningsverktøy",
+          mailer_from_name: "RCN deltakelsesverktøy",
+          mailer_from_address: "noreply@rcn.pro-ethics.eu"
         })
       end
     end
