@@ -33,17 +33,6 @@
     </li>
   <% end %>
 
-  <li>
-    <a href="#" class="booths-link"><%= t("admin.menu.title_booths") %></a>
-    <%= link_list(
-      officers_link,
-      booths_link,
-      booth_assignments_link,
-      shifts_link,
-      id: "booths_menu", class: ("is-active" if booths?)
-    ) %>
-  </li>
-
   <% if feature?(:signature_sheets) %>
     <li class="<%= "is-active" if controller_name == "signature_sheets" %>">
       <%= link_to t("admin.menu.signature_sheets"), admin_signature_sheets_path, class: "signature-sheets-link" %>
@@ -118,14 +107,7 @@
       class: ("is-active" if settings?)
     ) %>
   </li>
-  <li>
-    <a href="#" class="dashboard-link"><%= t("admin.menu.dashboard") %></a>
-    <%= link_list(
-      dashboard_actions_link,
-      administrator_tasks_link,
-      class: ("is-active" if dashboard?)
-    ) %>
-  </li>
+
   <% if ::MachineLearning.enabled? %>
     <li class="<%= "is-active" if controller_name == "machine_learning" %>">
       <%= link_to t("admin.menu.machine_learning"), admin_machine_learning_path, class: "ml-link" %>
