@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "Admin booths assignments", :admin do
+describe "Admin booths assignments", :admin, :consul do
   describe "Admin Booth Assignment management" do
     let!(:poll) { create(:poll) }
     let!(:booth) { create(:poll_booth) }
