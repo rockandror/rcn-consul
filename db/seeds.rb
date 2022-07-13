@@ -14,3 +14,6 @@ load Rails.root.join("db", "pages.rb")
 
 # Sustainable Development Goals
 load Rails.root.join("db", "sdg.rb")
+
+# Site customization images
+load Rails.root.join("db", "site_customization_images.rb")
