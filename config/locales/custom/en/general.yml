@@ -1,0 +1,9 @@
+en:
+  layouts:
+    footer:
+      funding:
+        text: "This project has received funding from the European Union's Horizon 2020 research and innovation programme under grant agreement No 872441."
+        logo: "European Union's logo"
+      framework:
+        link: "Visit the Pro-Ethics framework pro-ethics.eu"
+        logo: "Pro-Ethics logo"

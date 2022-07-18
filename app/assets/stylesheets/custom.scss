@@ -2,3 +2,136 @@
 //
 // You can also create SCSS files in the app/assets/stylesheets/custom/
 // folder and they will be loaded automatically.
+
+body:not(.admin) {
+  .top-links {
+    @include full-width-border(bottom, 1px solid $border, $adjust-padding: true);
+
+    background: $white;
+    color: $black;
+  }
+}
+
+.locale {
+  ul {
+    justify-content: right;
+  }
+
+  .locale-form label {
+    color: inherit;
+  }
+}
+
+.top-bar {
+  .top-bar-title a img {
+    @include breakpoint(small only) {
+      height: 3.5rem;
+    }
+
+    @include breakpoint(medium) {
+      width: 12rem;
+      margin: $line-height / 3 0;
+    }
+  }
+}
+
+.public > .wrapper > header {
+  .top-bar {
+    color: $black;
+    background-color: $white;
+
+    a {
+      font-weight: bold;
+    }
+  }
+}
+
+.footer {
+  background: $rcn-blue;
+  color: $white;
+
+  a:active,
+  a:focus,
+  a:hover {
+    color: darken($white, 20%);
+  }
+
+  .logo img {
+    @include breakpoint(small only) {
+      height: 1.5rem;
+      width: auto;
+    }
+
+    @include breakpoint(medium) {
+      width: 7rem;
+    }
+  }
+
+  .footer-sections img {
+    height: 3rem;
+  }
+}
+
+.home-page {
+  .header-card,
+  .background-header {
+    background-color: $brand-secondary;
+  }
+}
+
+.button,
+.proposal .supports .button-support {
+  background: $rcn-blue;
+  color: $white;
+
+  &:hover {
+    background: $rcn-orange;
+    color: $rcn-blue;
+  }
+}
+
+.debate-form,
+.proposal-form,
+.budget-investment-form {
+  [type="submit"] {
+    @include regular-button($rcn-blue);
+
+    &:hover {
+      background: $rcn-orange;
+      color: $rcn-blue;
+    }
+  }
+}
+
+.auth-image {
+  background: $rcn-light-gray;
+}
+
+.debate-new,
+.proposal-new,
+.budget-investment-new {
+  header {
+    $border-width: 4px;
+    @include brand-background($rcn-blue);
+    border: $border-width solid $rcn-blue;
+
+    @include breakpoint(large) {
+      $icon-size: $line-height * 4;
+      $padding-right: rem-calc(20);
+      $icon-size-with-padding: $icon-size + $padding-right;
+      background-image: linear-gradient(
+        to right,
+        #{$rcn-blue} 0,
+        #{$rcn-blue} calc(100% - #{$icon-size-with-padding} - 1px),
+        #{$white} calc(100% - #{$icon-size-with-padding}),
+        #{$white} 100%
+      );
+    }
+
+    h1 {
+      &::before {
+        color: $rcn-blue;
+      }
+    }
+  }
+}

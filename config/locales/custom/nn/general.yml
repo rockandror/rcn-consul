@@ -1,0 +1,9 @@
+nn:
+  layouts:
+    footer:
+      funding:
+        text: "Dette prosjektet har mottatt finansiering fra EUs Horizon 2020 forsknings- og innovasjonsprogram under tilskuddsavtale nr. 872441."
+        logo: "EUs logo"
+      framework:
+        link: "Besøk Pro-Ethics-rammeverket pro-ethics.eu"
+        logo: "Pro-Ethics logo"

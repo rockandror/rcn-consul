@@ -32,7 +32,7 @@ describe "Admin Budgets", :admin do
   end
 
   context "Show" do
-    scenario "Do not show questions section if the budget have a poll associated" do
+    scenario "Do not show questions section if the budget have a poll associated", :consul do
       poll = create(:poll, :for_budget)
 
       visit admin_poll_path(poll)

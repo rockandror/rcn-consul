@@ -165,7 +165,7 @@ describe "Admin polls", :admin do
     end
   end
 
-  context "Booths" do
+  context "Booths", :consul do
     context "Poll show" do
       scenario "No booths" do
         poll = create(:poll)
@@ -195,7 +195,7 @@ describe "Admin polls", :admin do
     end
   end
 
-  context "Officers" do
+  context "Officers", :consul do
     context "Poll show" do
       scenario "No officers" do
         poll = create(:poll)

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "Admin booths", :admin do
+describe "Admin booths", :admin, :consul do
   scenario "Index empty" do
     visit admin_root_path
 
