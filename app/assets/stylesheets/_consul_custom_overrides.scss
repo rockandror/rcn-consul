@@ -10,3 +10,15 @@
 //
 // The variables you can override are defined in the
 // `_settings.scss` and `_consul_settings.scss` files.
+
+// RCN corporate colors definition
+$rcn-blue: #1c445a;
+$rcn-light-gray: #f3f5f7;
+$rcn-orange: #ff7d00;
+
+$brand: $rcn-blue;
+$brand-secondary: $rcn-light-gray;
+
+$button-background: $rcn-blue !default;
+
+$proposals: $rcn-blue !default;
