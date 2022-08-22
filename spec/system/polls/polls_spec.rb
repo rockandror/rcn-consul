@@ -334,10 +334,11 @@ describe "Polls" do
       end
     end
 
-    scenario "Level 2 users who have already answered" do
+    scenario "Level 2 users who have already answered", :consul do
       question = create(:poll_question, :yes_no, poll: poll)
+      no = question.question_answers.last
       user = create(:user, :level_two)
-      create(:poll_answer, question: question, author: user, answer: "No")
+      create(:poll_answer, question: question, author: user, answer: no)
 
       login_as user
       visit poll_path(poll)

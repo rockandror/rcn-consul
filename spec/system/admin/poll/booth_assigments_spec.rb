@@ -228,7 +228,7 @@ describe "Admin booths assignments", :admin, :consul do
       expect(page).not_to have_selector "#recounts_list"
     end
 
-    scenario "Results for a booth assignment" do
+    scenario "Results for a booth assignment", :consul do
       poll = create(:poll)
       booth_assignment = create(:poll_booth_assignment, poll: poll)
       other_booth_assignment = create(:poll_booth_assignment, poll: poll)

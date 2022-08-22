@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Poll::PartialResult do
   describe "validations" do
-    it "validates that the answers are included in the Poll::Question's list" do
+    it "validates that the answers are included in the Poll::Question's list", :consul do
       question = create(:poll_question)
       create(:poll_question_answer, title: "One", question: question)
       create(:poll_question_answer, title: "Two", question: question)
