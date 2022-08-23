@@ -1,0 +1,7 @@
+en:
+  flash:
+    actions:
+      destroy:
+        poll_question_answer:
+          error: Cannot delete poll question answer because it already has user answers!
+          success: Poll question answer deleted successfully!

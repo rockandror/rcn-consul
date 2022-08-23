@@ -42,7 +42,7 @@
 
 <table class="margin-top">
   <tr>
-    <th colspan="5" scope="col" class="with-button">
+    <th colspan="6" scope="col" class="with-button">
       <%= t("admin.questions.show.valid_answers") %>
     </th>
   </tr>
@@ -53,6 +53,7 @@
     <th scope="col" class="text-center"><%= t("admin.questions.show.answers.images") %></th>
     <th scope="col" class="text-center"><%= t("admin.questions.show.answers.documents") %></th>
     <th scope="col" class="text-center"><%= t("admin.questions.show.answers.videos") %></th>
+    <th scope="col" class="text-center"><%= t("admin.actions.actions") %></th>
   </tr>
 
   <tbody class="sortable" data-js-url="<%= admin_question_answers_order_answers_path(@question.id) %>">
@@ -77,6 +78,11 @@
           <br>
           <%= link_to t("admin.questions.show.answers.video_list"),
                       admin_answer_videos_path(answer) %>
+        </td>
+        <td class="text-center">
+          <%= render Admin::TableActionsComponent.new(answer, actions: []) do |actions| %>
+            <%= actions.action(:destroy, path: admin_answer_path(answer), method: :delete, confirm: true) %>
+          <% end %>
         </td>
       </tr>
     <% end %>
