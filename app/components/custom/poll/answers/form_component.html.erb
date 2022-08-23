@@ -1,8 +1,18 @@
-<%= form_tag answer_poll_path(poll), id: "#{dom_id(poll)}_answers", class: "poll-answers-form" do %>
+<%= form_with model: poll_answers_form, url: answer_poll_path(poll), id: "#{dom_id(poll)}_answers", class: "poll-answers-form" do |f| %>
   <%= invisible_captcha :title %>
   <%= render ErrorsComponent.new(error_message) %>
-  <% answers.each do |answer| %>
+  <% poll_answers_form.answers.each do |answer| %>
     <%= render Poll::Answers::FieldsComponent.new(answer) %>
+  <% end %>
+
+  <% unless poll.voted_by?(current_user) %>
+    <%= f.check_box :terms_of_service,
+      title: t("polls.answers.form.terms_of_service.title"),
+      label: t("polls.answers.form.terms_of_service.terms",
+                terms: link_to(t("devise_views.users.registrations.new.terms_link"), "/conditions",
+                              title: t("shared.target_blank"),
+                              target: "_blank")
+              ) %>
   <% end %>
 
   <%= submit_tag(t("polls.answers.form.submit_button"), class: "button", disabled: cannot?(:answer, poll)) %>

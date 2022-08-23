@@ -1,14 +1,14 @@
 class Poll::Answers::FormComponent < ApplicationComponent
-  attr_reader :answers, :poll
+  attr_reader :poll_answers_form, :poll
   delegate :current_user, :cannot?, to: :helpers
 
-  def initialize(poll, answers)
+  def initialize(poll, poll_answers_form)
     @poll = poll
-    @answers = answers
+    @poll_answers_form = poll_answers_form
   end
 
   def error_message
-    count = answers.select { |a| a.errors.any? }.map(&:errors).flatten.count
+    count = poll_answers_form.errors.count
 
     I18n.t("polls.answers.form.error", count: count) if count > 0
   end
