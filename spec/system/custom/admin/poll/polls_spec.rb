@@ -1,6 +1,33 @@
 require "rails_helper"
 
 describe "Admin polls", :admin do
+  scenario "Create poll with descriptions fields" do
+    visit new_admin_poll_path
+
+    start_date = 1.week.from_now.to_date
+    end_date = 2.weeks.from_now.to_date
+
+    fill_in "Name", with: "Upcoming poll"
+    fill_in "poll_starts_at", with: start_date
+    fill_in "poll_ends_at", with: end_date
+    fill_in "Summary", with: "Upcoming poll's summary. This poll..."
+    fill_in "Text next to the link to jump to the answers description section",
+            with: "You can find the answer descriptions..."
+    fill_in "Description", with: "Upcomming poll's description. This poll..."
+    fill_in "Answers descriptions title", with: "Answers descriptions for poll"
+
+    click_button "Create poll"
+
+    expect(page).to have_content "Poll created successfully"
+
+    visit admin_polls_path
+
+    click_link "Edit"
+
+    expect(page).to have_content "You can find the answer descriptions..."
+    expect(page).to have_field "Answers descriptions title", with: "Answers descriptions for poll"
+  end
+
   context "Results" do
     context "Poll show" do
       scenario "Show partial results" do

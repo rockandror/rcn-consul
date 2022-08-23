@@ -26,7 +26,15 @@
       </div>
 
       <div class="small-12 column">
+        <%= translations_form.text_area :answers_descriptions_link_text, rows: 4 %>
+      </div>
+
+      <div class="small-12 column">
         <%= translations_form.text_area :description, rows: 8 %>
+      </div>
+
+      <div class="small-12 medium-6 column end">
+        <%= translations_form.text_field :answers_descriptions_title %>
       </div>
     <% end %>
   </div>
