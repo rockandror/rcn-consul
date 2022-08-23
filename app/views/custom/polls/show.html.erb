@@ -46,8 +46,8 @@
 
   <div id="poll_more_info_answers" class="expanded poll-more-info-answers">
     <div class="row padding">
-      <% @poll_questions_answers.each do |answer| %>
-        <div class="small-12 medium-6 column end answer <%= cycle("first", "") %>" id="answer_<%= answer.id %>">
+      <% @poll_questions_answers.select(&:has_more_information?).each do |answer| %>
+        <div class="small-12 column end answer" id="answer_<%= answer.id %>">
           <h3><%= answer.title %></h3>
 
           <% if answer.images.any? %>
@@ -56,21 +56,8 @@
 
           <% if answer.description.present? %>
             <div class="margin-top">
-              <div id="answer_description_<%= answer.id %>" class="answer-description short" data-toggler="short">
+              <div id="answer_description_<%= answer.id %>" class="answer-description">
                 <%= wysiwyg(answer.description) %>
-              </div>
-              <div class="read-more">
-                <button type="button" id="read_more_<%= answer.id %>"
-                   data-toggle="answer_description_<%= answer.id %> read_more_<%= answer.id %> read_less_<%= answer.id %>"
-                   data-toggler="hide">
-                  <%= t("polls.show.read_more", answer: answer.title) %>
-                </button>
-                <button type="button" id="read_less_<%= answer.id %>"
-                   data-toggle="answer_description_<%= answer.id %> read_more_<%= answer.id %> read_less_<%= answer.id %>"
-                   data-toggler="hide"
-                   class="hide">
-                  <%= t("polls.show.read_less", answer: answer.title) %>
-                </button>
               </div>
             </div>
           <% end %>

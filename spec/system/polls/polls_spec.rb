@@ -215,6 +215,30 @@ describe "Polls" do
       end
     end
 
+    scenario "Do not show answers without more information at more information section" do
+      question = create(:poll_question, poll: poll)
+      answer_with_description = create(:poll_question_answer, title: "Description", question: question,
+        given_order: 1)
+      answer_with_image = create(:poll_question_answer, :with_image, title: "Image", question: question,
+        given_order: 2)
+      answer_with_document = create(:poll_question_answer, :with_document, title: "Document",
+        question: question, given_order: 3)
+      answer_with_video = create(:poll_question_answer, :with_video, title: "Video", question: question,
+        given_order: 4,)
+      answer_empty = create(:poll_question_answer, title: "Empty", question: question, given_order: 5,
+        description: nil, images: [], documents: [], videos: [])
+
+      visit poll_path(poll)
+
+      within("div.poll-more-info-answers") do
+        expect(page).to have_content(answer_with_description.title)
+        expect(page).to have_content(answer_with_image.title)
+        expect(page).to have_content(answer_with_document.title)
+        expect(page).to have_content(answer_with_video.title)
+        expect(page).not_to have_content(answer_empty.title)
+      end
+    end
+
     scenario "Answer images are shown" do
       question = create(:poll_question, :yes_no, poll: poll)
       create(:image, imageable: question.question_answers.first, title: "The yes movement")
