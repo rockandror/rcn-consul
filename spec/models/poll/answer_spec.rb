@@ -18,7 +18,7 @@ describe Poll::Answer do
       expect(answer).not_to be_valid
     end
 
-    it "is not valid without an answer" do
+    it "is not valid without an answer", :consul do
       answer.answer = nil
       expect(answer).not_to be_valid
     end

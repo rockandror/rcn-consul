@@ -94,7 +94,7 @@ describe "Polls" do
       expect(page).to have_content("This poll is not available on your geozone")
     end
 
-    scenario "Already participated in a poll" do
+    scenario "Already participated in a poll", :consul do
       poll_with_question = create(:poll)
       question = create(:poll_question, :yes_no, poll: poll_with_question)
 
@@ -191,7 +191,7 @@ describe "Polls" do
       expect("Second question").to appear_before("Third question")
     end
 
-    scenario "Question answers appear in the given order" do
+    scenario "Question answers appear in the given order", :consul do
       question = create(:poll_question, poll: poll)
       answer1 = create(:poll_question_answer, title: "First", question: question, given_order: 2)
       answer2 = create(:poll_question_answer, title: "Second", question: question, given_order: 1)
@@ -242,7 +242,7 @@ describe "Polls" do
       end
     end
 
-    scenario "Non-logged in users" do
+    scenario "Non-logged in users", :consul do
       create(:poll_question, :yes_no, poll: poll)
 
       visit poll_path(poll)
@@ -252,7 +252,7 @@ describe "Polls" do
       expect(page).to have_link("No", href: new_user_session_path)
     end
 
-    scenario "Level 1 users" do
+    scenario "Level 1 users", :consul do
       visit polls_path
       expect(page).not_to have_selector(".already-answer")
 
@@ -270,7 +270,7 @@ describe "Polls" do
       expect(page).to have_link("No", href: verification_path)
     end
 
-    scenario "Level 2 users in an expired poll" do
+    scenario "Level 2 users in an expired poll", :consul do
       expired_poll = create(:poll, :expired, geozone_restricted: true)
       expired_poll.geozones << geozone
 
@@ -289,7 +289,7 @@ describe "Polls" do
       expect(page).to have_content("This poll has finished")
     end
 
-    scenario "Level 2 users in a poll with questions for a geozone which is not theirs" do
+    scenario "Level 2 users in a poll with questions for a geozone which is not theirs", :consul do
       poll.update!(geozone_restricted: true)
       poll.geozones << create(:geozone)
 
@@ -307,7 +307,7 @@ describe "Polls" do
       end
     end
 
-    scenario "Level 2 users reading a same-geozone poll" do
+    scenario "Level 2 users reading a same-geozone poll", :consul do
       poll.update!(geozone_restricted: true)
       poll.geozones << geozone
 
@@ -322,7 +322,7 @@ describe "Polls" do
       end
     end
 
-    scenario "Level 2 users reading a all-geozones poll" do
+    scenario "Level 2 users reading a all-geozones poll", :consul do
       question = create(:poll_question, :yes_no, poll: poll)
 
       login_as(create(:user, :level_two))
@@ -349,7 +349,7 @@ describe "Polls" do
       end
     end
 
-    scenario "Level 2 users answering" do
+    scenario "Level 2 users answering", :consul do
       poll.update!(geozone_restricted: true)
       poll.geozones << geozone
 
@@ -367,7 +367,7 @@ describe "Polls" do
       end
     end
 
-    scenario "Level 2 users changing answer" do
+    scenario "Level 2 users changing answer", :consul do
       poll.update!(geozone_restricted: true)
       poll.geozones << geozone
 
@@ -390,7 +390,7 @@ describe "Polls" do
       end
     end
 
-    scenario "Level 2 votes, signs out, signs in, votes again" do
+    scenario "Level 2 votes, signs out, signs in, votes again", :consul do
       poll.update!(geozone_restricted: true)
       poll.geozones << geozone
 
@@ -458,7 +458,7 @@ describe "Polls" do
     let(:booth) { create(:poll_booth) }
     let(:officer) { create(:poll_officer) }
 
-    scenario "Already voted on booth cannot vote on website" do
+    scenario "Already voted on booth cannot vote on website", :consul do
       create(:poll_shift, officer: officer, booth: booth, date: Date.current, task: :vote_collection)
       create(:poll_officer_assignment, officer: officer, poll: poll, booth: booth, date: Date.current)
       question = create(:poll_question, :yes_no, poll: poll)

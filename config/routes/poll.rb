@@ -2,6 +2,7 @@ resources :polls, only: [:show, :index] do
   member do
     get :stats
     get :results
+    post :answer
   end
 
   resources :questions, controller: "polls/questions", shallow: true do

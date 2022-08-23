@@ -1,0 +1,23 @@
+<div id="<%= "question_#{question.id}_answer_fields" %>" class="question-answer-fields">
+  <%= fields_for "question_#{question.id}", answer do |answer_form| %>
+    <% if question.single_choice? %>
+      <fieldset>
+        <legend><%= question.title %></legend>
+        <% if question.description.present? %>
+          <span class="help-text"><%= question.description %></span>
+        <% end %>
+        <% question.question_answers.each do |answer| %>
+          <div class="question-answer">
+            <%= answer_form.radio_button :answer_id, answer.id, label: answer.title,
+                                                                disabled: cannot?(:answer, question.poll) %>
+          </div>
+        <% end %>
+        <%= errors_for :answer_id %>
+      </fieldset>
+    <% else %>
+      <%= answer_form.text_field :open_answer, label: question.title,
+                                               hint: question.description,
+                                               disabled: cannot?(:answer, question.poll) %>
+    <% end %>
+  <% end %>
+</div>

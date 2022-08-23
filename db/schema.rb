@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_21_221037) do
+ActiveRecord::Schema.define(version: 2022_08_22_155714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1019,6 +1019,7 @@ ActiveRecord::Schema.define(version: 2022_03_21_221037) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.bigint "answer_id"
+    t.string "open_answer"
     t.index ["answer_id"], name: "index_poll_answers_on_answer_id"
     t.index ["author_id"], name: "index_poll_answers_on_author_id"
     t.index ["question_id"], name: "index_poll_answers_on_question_id"
@@ -1125,6 +1126,7 @@ ActiveRecord::Schema.define(version: 2022_03_21_221037) do
     t.datetime "updated_at", null: false
     t.string "title"
     t.datetime "hidden_at"
+    t.text "description"
     t.index ["hidden_at"], name: "index_poll_question_translations_on_hidden_at"
     t.index ["locale"], name: "index_poll_question_translations_on_locale"
     t.index ["poll_question_id"], name: "index_poll_question_translations_on_poll_question_id"
@@ -1141,6 +1143,7 @@ ActiveRecord::Schema.define(version: 2022_03_21_221037) do
     t.datetime "updated_at"
     t.tsvector "tsv"
     t.string "video_url"
+    t.boolean "mandatory_answer", default: false, null: false
     t.index ["author_id"], name: "index_poll_questions_on_author_id"
     t.index ["poll_id"], name: "index_poll_questions_on_poll_id"
     t.index ["proposal_id"], name: "index_poll_questions_on_proposal_id"
