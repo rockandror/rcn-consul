@@ -17,4 +17,11 @@ class Poll::Answers::FieldsComponent < ApplicationComponent
       answer.errors.full_messages_for(field).join(", ")
     end
   end
+
+  def styles
+    classes = %w[question-answer-fields]
+    classes << "single-choice" if answer.question.single_choice?
+    classes << "has-error" if answer.errors.any?
+    classes.join(" ")
+  end
 end

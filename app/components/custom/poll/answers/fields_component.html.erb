@@ -1,4 +1,4 @@
-<div id="<%= "question_#{question.id}_answer_fields" %>" class="question-answer-fields">
+<div id="<%= "question_#{question.id}_answer_fields" %>" class="<%= styles %>">
   <%= fields_for "question_#{question.id}", answer do |answer_form| %>
     <% if question.single_choice? %>
       <fieldset>

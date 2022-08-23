@@ -22,3 +22,10 @@ $brand-secondary: $rcn-light-gray;
 $button-background: $rcn-blue !default;
 
 $proposals: $rcn-blue !default;
+$foundation-palette: (
+  primary: #1779ba,
+  secondary: #767676,
+  success: #3adb76,
+  warning: #ffae00,
+  alert: darken(#cc4b37, 1%),
+) !default;
