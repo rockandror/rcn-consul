@@ -1,0 +1,7 @@
+en:
+  flash:
+    actions:
+      destroy:
+        poll_question_answer:
+          error: Kan ikke slette svar på spørsmålsspørsmålet fordi det allerede har brukersvar!
+          success: Svaret på avstemningsspørsmålet ble slettet!
