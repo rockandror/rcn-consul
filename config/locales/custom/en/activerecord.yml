@@ -5,3 +5,6 @@ en:
         mandatory_answer: "Mandatory answer"
       poll/question/translation:
         description: "Description"
+      poll/translation:
+        answers_descriptions_link_text: "Text next to the link to jump to the answers description section"
+        answers_descriptions_title: "Answers descriptions title"

@@ -1191,6 +1191,8 @@ ActiveRecord::Schema.define(version: 2022_08_22_155714) do
     t.text "summary"
     t.text "description"
     t.datetime "hidden_at"
+    t.text "answers_descriptions_link_text"
+    t.string "answers_descriptions_title"
     t.index ["hidden_at"], name: "index_poll_translations_on_hidden_at"
     t.index ["locale"], name: "index_poll_translations_on_locale"
     t.index ["poll_id"], name: "index_poll_translations_on_poll_id"

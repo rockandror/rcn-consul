@@ -47,6 +47,19 @@ describe "Polls" do
         expect(page).not_to have_css("span.help-text")
       end
     end
+
+    scenario "Show answers descriptions fields when defined" do
+      poll = create(:poll, answers_descriptions_link_text: "You can find the answer descriptions...",
+                           answers_descriptions_title: "Answers descriptions for poll")
+      question = create(:poll_question, poll: poll)
+      create(:poll_question_answer, question: question, title: "Yes")
+
+      visit poll_path(poll)
+
+      expect(page).to have_content "You can find the answer descriptions..."
+      expect(page).to have_link "Read more"
+      expect(page).to have_content "Answers descriptions for poll"
+    end
   end
 
   context "Answer" do
