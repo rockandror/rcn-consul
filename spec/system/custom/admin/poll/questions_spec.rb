@@ -54,4 +54,23 @@ describe "Admin poll questions", :admin do
 
     expect(page).to have_content("Useful description for question")
   end
+
+  scenario "Create with validator" do
+    poll = create(:poll, name: "Movies")
+    title = "What is the postal code of your town?"
+
+    visit admin_poll_path(poll)
+    click_link "Create question"
+
+    fill_in "Question", with: title
+    select "Postal code", from: "Validator"
+
+    click_button "Save"
+
+    expect(page).to have_content(title)
+
+    click_link "Edit question"
+
+    expect(page).to have_field "Validator", with: "postal_code"
+  end
 end

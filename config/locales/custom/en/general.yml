@@ -16,5 +16,11 @@ en:
         error:
           one: "1 error prevented your answers from being saved. Please check the marked field to know how to correct it:"
           other: "%{count} errors prevented your answers from being saved. Please check the marked fields to know how to correct them:"
+        postal_code_validator: "The postal code format is invalid. Allowed postal codes must contain four digits."
+    questions:
+      validators:
+        age: Age
+        none: Do not apply any validation
+        postal_code: Postal code
     show:
       answers_descriptions_link_text: "Read more"
