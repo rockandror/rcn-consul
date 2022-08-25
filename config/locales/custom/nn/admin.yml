@@ -1,0 +1,5 @@
+en:
+  admin:
+    questions:
+      show:
+        description: "Beskrivelse"

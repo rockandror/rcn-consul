@@ -1,0 +1,10 @@
+nn:
+  activerecord:
+    attributes:
+      poll/question:
+        mandatory_answer: "Obligatorisk svar"
+      poll/question/translation:
+        description: "Beskrivelse"
+      poll/translation:
+        answers_descriptions_link_text: "Tekst ved siden av lenken for å hoppe til svarbeskrivelsesdelen"
+        answers_descriptions_title: "Tittel på svarbeskrivelser"

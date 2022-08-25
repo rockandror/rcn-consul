@@ -7,3 +7,28 @@ nn:
       framework:
         link: "Besøk Pro-Ethics-rammeverket pro-ethics.eu"
         logo: "Pro-Ethics logo"
+    header:
+      poll_questions: "Avstemning"
+  polls:
+    answers:
+      create:
+        success_notice: "Avstemningen ble lagret!"
+      form:
+        submit_button: "Stemme"
+        error:
+          one: "1 feil forhindret at svarene dine ble lagret. Vennligst sjekk det merkede feltet for å vite hvordan du retter det:"
+          other: "%{count} feil forhindret at svarene dine ble lagret. Vennligst sjekk de merkede feltene for å vite hvordan du retter dem:"
+        postal_code_validator: "Postnummerformatet er ugyldig. Tillatte postnumre må inneholde fire sifre."
+    index:
+      already_answer: "Du har allerede deltatt i denne avstemningen"
+    questions:
+      validators:
+        age: Alder
+        none: Ikke bruk noen validering
+        postal_code: Postnummer
+    show:
+      answers_descriptions_link_text: "Les mer"
+  proposals:
+      index:
+        section_footer:
+          description: Innbyggere sine forslag er en mulighet for naboer og foreninger å få direkte innflytelse på hvordan deres by skal være. Det skjer ved at forslagene oppnår støtte fra andre brukere og deretter går videre til en offentlig avstemning.
