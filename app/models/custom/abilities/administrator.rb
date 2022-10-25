@@ -9,6 +9,6 @@ class Abilities::Administrator
     can :destroy, Poll::Question::Answer do |answer|
       answer.answers.none? && answer.partial_results.none?
     end
-    can :export, Poll
+    can :export, Poll, &:expired?
   end
 end

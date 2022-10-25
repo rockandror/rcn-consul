@@ -166,7 +166,7 @@ describe "Admin polls", :admin do
     scenario "Downloading CSV file", :admin do
       user_1 = create(:user, :level_two)
       user_2 = create(:user, :level_two)
-      poll = create(:poll, name: "Questions to citizens")
+      poll = create(:poll, :expired, name: "Questions to citizens")
       question_1 = create(:poll_question, poll: poll, title: "What is your favourite color?")
       create(:poll_answer, question: question_1, open_answer: "Red", author: user_1)
       create(:poll_answer, question: question_1, open_answer: "Blue", author: user_2)
