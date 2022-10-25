@@ -154,7 +154,9 @@ namespace :admin do
       end
 
       resources :recounts, only: :index
-      resources :results, only: :index
+      resources :results, only: :index do
+        get :export, on: :member
+      end
     end
 
     resources :officers, only: [:index, :new, :create, :destroy] do
