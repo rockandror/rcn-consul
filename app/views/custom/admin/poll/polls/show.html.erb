@@ -1,0 +1,13 @@
+<%= render "poll_header" %>
+
+<% if can? :export, @poll %>
+  <%= link_to t("admin.polls.show.download_polls_results"),
+              export_admin_poll_result_path(@poll, csv_params),
+              class: "float-right small clear" %>
+<% end %>
+
+<div id="poll-resources">
+  <%= render "subnav" %>
+
+  <%= render "questions" %>
+</div>

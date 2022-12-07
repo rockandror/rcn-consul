@@ -3,3 +3,6 @@ en:
     questions:
       show:
         description: "Description"
+    polls:
+      show:
+        download_polls_results: "Download polls results"
